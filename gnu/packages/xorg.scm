@@ -64,6 +64,7 @@
   #:use-module (guix build-system meson)
   #:use-module (guix build-system perl)
   #:use-module (guix build-system python)
+  #:use-module (guix build-system trivial)
   #:use-module (guix utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages aidc)
@@ -6792,5 +6793,6 @@ and can restore previously set wallpapers and options.")
         (home-page "https://git.sr.ht/~iank/evhz")
         (synopsis "Show mouse refresh rate under linux + evdev.")
         (description
-         "A simple utility to show mouse refresh rate under linux + evdev.")
-        (license license:apsl2)))
+         "A simple diagnostic utility to show mouse refresh rate under linux +
+evdev.")
+        (license license:apsl2))))
