@@ -6763,38 +6763,3 @@ the server and cleaning up before returning the exit status of the command.")
 syntax without its image viewing capabilities.  It supports multiple monitors
 and can restore previously set wallpapers and options.")
     (license license:gpl3+)))
-
-(define-public evhz
-  (let ((commit "35b7526e0655522bbdf92f6384f4e9dff74f38a0")
-        (revision "1"))
-      (package
-        (name "evhz")
-        (version (git-version "0.0.0" revision commit))
-        (source (origin
-                  (method git-fetch)
-                  (uri (git-reference
-                        (url "https://git.sr.ht/~iank/evhz")
-                        (commit commit)))
-                  (sha256
-                   (base32
-                    "00hwpk79qdjzx5a1c56ln59x3igfj65xzbvjw2baiil453hpn7ai"))))
-        (build-system trivial-build-system)
-        (arguments
-         `(#:modules ((guix build utils))
-           #:builder (begin
-                       (use-modules (guix build utils))
-                       (let ((source (assoc-ref %build-inputs "source"))
-                             (out (assoc-ref %outputs "out")))
-                         (mkdir-p (file-append out "/bin"))
-                         (invoke (file-append gcc "/bin/gcc")
-                                 "-o" (file-append out "/bin/evhz")
-                                 (file-append source "/evhz.c"))
-                         #t))))
-        (native-inputs
-         (list gcc gcc-toolchain glibc linux-libre-headers))
-        (home-page "https://git.sr.ht/~iank/evhz")
-        (synopsis "Show mouse refresh rate under linux + evdev.")
-        (description
-         "A simple diagnostic utility to show mouse refresh rate under linux +
-evdev.")
-        (license license:apsl2))))
