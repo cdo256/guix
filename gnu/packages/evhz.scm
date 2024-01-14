@@ -99,19 +99,19 @@
                                                  (string-append binutils "/bin")
                                                  (getenv "PATH"))
                                            ":"))
-                           (setenv "LD_LIBRARY_PATH"
-                                   (string-join
-                                    (list (string-append glibc "/lib")
-                                          (getenv "LD_LIBRARY_PATH"))
-                                    ":"))
+                           ;; (setenv "LD_LIBRARY_PATH"
+                           ;;         (string-join
+                           ;;          (list (string-append glibc "/lib")
+                           ;;                (getenv "LD_LIBRARY_PATH"))
+                           ;;          ":"))
                            (mkdir-p (string-append output "/bin"))
                            (invoke (string-append gcc "/bin/gcc")
                                    "-o" (string-append output "/bin/evhz")
                                    "-I" (string-append linux-libre-headers "/include")
                                    "-L" (string-append glibc "/lib")
                                    ;; In an attempt to get it working. I know this shouldn't be necessary!
-                                   "-l" (string-append glibc "/lib/crt1.o")
-                                   "-l" (string-append glibc "/lib/crti.o")
+                                   ;; "-l" (string-append glibc "/lib/crt1.o")
+                                   ;; "-l" (string-append glibc "/lib/crti.o")
                                    (string-append source "/evhz.c"))
                            #t))))
         (inputs
@@ -120,12 +120,12 @@
                gcc-toolchain
                glibc
                linux-libre-headers))
-        (native-inputs
-         (list binutils
-               gcc
-               gcc-toolchain
-               glibc
-               linux-libre-headers))
+        ;; (native-inputs
+        ;;  (list binutils
+        ;;        gcc
+        ;;        gcc-toolchain
+        ;;        glibc
+        ;;        linux-libre-headers))
         (home-page "https://git.sr.ht/~iank/evhz")
         (synopsis "Show mouse refresh rate under linux + evdev.")
         (description
