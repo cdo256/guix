@@ -1,42 +1,5 @@
 ;;; GNU Guix --- Functional package management for GNU
-;;; Copyright © 2013, 2014 Andreas Enge <andreas@enge.fr>
-;;; Copyright © 2014, 2015, 2017, 2018, 2020 Mark H Weaver <mhw@netris.org>
-;;; Copyright © 2014, 2015 Eric Bavier <bavier@member.fsf.org>
-;;; Copyright © 2015-2022 Ludovic Courtès <ludo@gnu.org>
-;;; Copyright © 2015 Eric Dvorsak <eric@dvorsak.fr>
-;;; Copyright © 2016 Mathieu Lirzin <mthl@gnu.org>
-;;; Copyright © 2015 Cyrill Schenkel <cyrill.schenkel@gmail.com>
-;;; Copyright © 2016, 2017, 2019-2023 Efraim Flashner <efraim@flashner.co.il>
-;;; Copyright © 2016 Nikita <nikita@n0.is>
-;;; Copyright © 2016 Alex Kost <alezost@gmail.com>
-;;; Copyright © 2016 David Craven <david@craven.ch>
-;;; Copyright © 2016, 2017 John Darrington <jmd@gnu.org>
-;;; Copyright © 2017-2022 Marius Bakke <marius@gnu.org>
-;;; Copyright © 2017, 2018, 2019 Rutger Helling <rhelling@mykolab.com>
-;;; Copyright © 2017, 2020 Arun Isaac <arunisaac@systemreboot.net>
-;;; Copyright © 2018–2022 Tobias Geerinckx-Rice <me@tobias.gr>
-;;; Copyright © 2018 Kei Kebreau <kkebreau@posteo.net>
-;;; Copyright © 2018, 2020, 2022 Oleg Pykhalov <go.wigust@gmail.com>
-;;; Copyright © 2018 Benjamin Slade <slade@jnanam.net>
-;;; Copyright © 2019 nee <nee@cock.li>
-;;; Copyright © 2019 Yoshinori Arai <kumagusu08@gmail.com>
-;;; Copyright © 2019 Mathieu Othacehe <m.othacehe@gmail.com>
-;;; Copyright © 2020 Liliana Marie Prikler <liliana.prikler@gmail.com>
-;;; Copyright © 2020 Florian Pelz <pelzflorian@pelzflorian.de>
-;;; Copyright © 2020, 2021 Michael Rohleder <mike@rohleder.de>
-;;; Copyright © 2020, 2021, 2022, 2023 Maxim Cournoyer <maxim.cournoyer@gmail.com>
-;;; Copyright © 2020 Jean-Baptiste Note <jean-baptiste.note@m4x.org>
-;;; Copyright © 2021 Matthew James Kraai <kraai@ftbfs.org>
-;;; Copyright © 2021 Nicolò Balzarotti <nicolo@nixo.xyz>
-;;; Copyright © 2021 Matthew James Kraai <kraai@ftbfs.org>
-;;; Copyright © 2021 Brice Waegeneire <brice@waegenei.re>
-;;; Copyright © 2021 Matthew James Kraai <kraai@ftbfs.org>
-;;; Copyright © 2021 Maxime Devos <maximedevos@telenet.be>
-;;; Copyright © 2021 qblade <qblade@protonmail.com>
-;;; Copyright © 2021 Lu Hui <luhux76@gmail.com>
-;;; Copyright © 2023 Zheng Junjie <873216071@qq.com>
-;;; Copyright © 2023 Janneke Nieuwenhuizen <janneke@gnu.org>
-;;; Copyright © 2023 John Kehayias <john.kehayias@protonmail.com>
+;;; Copyright © 2024 Christina O'Donnell <cdo@mutix.org>
 ;;;
 ;;; This file is part of GNU Guix.
 ;;;
@@ -99,33 +62,21 @@
                                                  (string-append binutils "/bin")
                                                  (getenv "PATH"))
                                            ":"))
-                           ;; (setenv "LD_LIBRARY_PATH"
-                           ;;         (string-join
-                           ;;          (list (string-append glibc "/lib")
-                           ;;                (getenv "LD_LIBRARY_PATH"))
-                           ;;          ":"))
+                           (setenv "LIBRARY_PATH" (string-join
+                                                   (list (string-append glibc "/lib"))
+                                                   ":"))
                            (mkdir-p (string-append output "/bin"))
                            (invoke (string-append gcc "/bin/gcc")
                                    "-o" (string-append output "/bin/evhz")
                                    "-I" (string-append linux-libre-headers "/include")
-                                   "-L" (string-append glibc "/lib")
-                                   ;; In an attempt to get it working. I know this shouldn't be necessary!
-                                   ;; "-l" (string-append glibc "/lib/crt1.o")
-                                   ;; "-l" (string-append glibc "/lib/crti.o")
                                    (string-append source "/evhz.c"))
                            #t))))
-        (inputs
+        (native-inputs
          (list binutils
                gcc
                gcc-toolchain
                glibc
                linux-libre-headers))
-        ;; (native-inputs
-        ;;  (list binutils
-        ;;        gcc
-        ;;        gcc-toolchain
-        ;;        glibc
-        ;;        linux-libre-headers))
         (home-page "https://git.sr.ht/~iank/evhz")
         (synopsis "Show mouse refresh rate under linux + evdev.")
         (description
