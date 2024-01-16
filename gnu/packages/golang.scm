@@ -2208,34 +2208,6 @@ syslog, file and memory.  Multiple backends can be utilized with different log
 levels per backend and logger.")
     (license license:bsd-3)))
 
-(define-public go-github-com-rs-zerolog
-  (package
-    (name "go-github-com-rs-zerolog")
-    (version "1.31.0")
-    (source
-     (origin
-       (method git-fetch)
-       (uri (git-reference
-             (url "https://github.com/rs/zerolog")
-             (commit (string-append "v" version))))
-       (file-name (git-file-name name version))
-       (sha256
-        (base32 "0lysq2gbfaszbw9qk1808gyii43pfxi5yfrys80d8rq5hymdk9zl"))))
-    (build-system go-build-system)
-    (arguments
-     (list
-      #:import-path "github.com/rs/zerolog"))
-    (propagated-inputs `(("go-github-com-rs-xid" ,go-github-com-rs-xid)
-                         ("go-github-com-pkg-errors" ,go-github-com-pkg-errors)
-                         ("go-github-com-mattn-go-colorable" ,go-github-com-mattn-go-colorable)
-                         ("go-github-com-coreos-go-systemd-v22" ,go-github-com-coreos-go-systemd-v22)))
-    (home-page "https://github.com/rs/zerolog")
-    (synopsis "Zero Allocation JSON Logger")
-    (description
-     "Package zerolog provides a lightweight logging library dedicated to JSON
-logging.")
-    (license license:expat)))
-
 (define-public go-github-com-operatorfoundation-shapeshifter-ipc
   (package
     (name "go-github-com-operatorfoundation-shapeshifter-ipc")
@@ -8725,51 +8697,6 @@ semantic versions.  Specifically it provides the ability to:
 which are widely used in other languages but absent in Go package strings.")
     (license license:expat)))
 
-(define-public go-github-com-lucasjones-reggen
-  (package
-    (name "go-github-com-lucasjones-reggen")
-    (version "0.0.0-20200904144131-37ba4fa293bb")
-    (source
-     (origin
-       (method git-fetch)
-       (uri (git-reference
-             (url "https://github.com/lucasjones/reggen")
-             (commit (go-version->git-ref version))))
-       (file-name (git-file-name name version))
-       (sha256
-        (base32 "0r66s2qsmgas8ij0yibz63v3rjn7sivgqadpldzaknzjl8nj4pdr"))))
-    (build-system go-build-system)
-    (arguments
-     (list
-      #:import-path "github.com/lucasjones/reggen"))
-    (home-page "https://github.com/lucasjones/reggen")
-    (synopsis "Reg-gen")
-    (description "Package reggen generates text based on regex definitions")
-    (license license:expat)))
-
-(define-public go-github-com-petar-dambovaliev-aho-corasick
-  (package
-    (name "go-github-com-petar-dambovaliev-aho-corasick")
-    (version "0.0.0-20230725210150-fb29fc3c913e")
-    (source
-     (origin
-       (method git-fetch)
-       (uri (git-reference
-             (url "https://github.com/petar-dambovaliev/aho-corasick")
-             (commit (go-version->git-ref version))))
-       (file-name (git-file-name name version))
-       (sha256
-        (base32 "1vf0riwi3rkqcpdixr0q0b1caig2mj39qm41v8ss5zgaphw1cy11"))))
-    (build-system go-build-system)
-    (arguments
-     (list
-      #:import-path "github.com/petar-dambovaliev/aho-corasick"))
-    (home-page "https://github.com/petar-dambovaliev/aho-corasick")
-    (synopsis "aho-corasick")
-    (description
-     "Efficient string matching in Golang via the aho-corasick algorithm.")
-    (license license:expat)))
-
 (define-public go-github-com-imdario-mergo
   (package
     (name "go-github-com-imdario-mergo")
@@ -10576,43 +10503,6 @@ compressed streams in Go.")
      (list go-github-com-goccy-yaml))
     (synopsis "Go library to get configuration values from gitconfig")
     (description "@{gitconfig} is a package to get configuration values from gitconfig.")
-    (license license:expat)))
-
-(define-public go-github-com-zricethezav-gitleaks-v8
-  (package
-    (name "go-github-com-zricethezav-gitleaks-v8")
-    (version "8.18.1")
-    (source
-     (origin
-       (method git-fetch)
-       (uri (git-reference
-             (url "https://github.com/gitleaks/gitleaks")
-             (commit (string-append "v" version))))
-       (file-name (git-file-name name version))
-       (sha256
-        (base32 "16nls19934pslyq09ykfdc6qwv994dsbcp0mr8r1j9aqbjx7yixz"))))
-    (build-system go-build-system)
-    (arguments
-     (list
-      #:go 1.19
-      #:import-path "github.com/zricethezav/gitleaks/v8"))
-    (propagated-inputs `(("go-github-com-petar-dambovaliev-aho-corasick" ,go-github-com-petar-dambovaliev-aho-corasick)
-                         ("go-github-com-lucasjones-reggen" ,go-github-com-lucasjones-reggen)
-                         ("go-github-com-stretchr-testify" ,go-github-com-stretchr-testify)
-                         ("go-github-com-spf13-viper" ,go-github-com-spf13-viper)
-                         ("go-github-com-spf13-cobra" ,go-github-com-spf13-cobra)
-                         ("go-github-com-rs-zerolog" ,go-github-com-rs-zerolog)
-                         ("go-github-com-h2non-filetype" ,go-github-com-h2non-filetype)
-                         ("go-github-com-gitleaks-go-gitdiff" ,go-github-com-gitleaks-go-gitdiff)
-                         ("go-github-com-fatih-semgroup" ,go-github-com-fatih-semgroup)
-                         ("go-github-com-charmbracelet-lipgloss" ,go-github-com-charmbracelet-lipgloss)))
-    (home-page "https://github.com/zricethezav/gitleaks")
-    (synopsis "Security tool to detect secrets in Git history")
-    (description
-     "Gitleaks is a SAST tool for @@strong{detecting} and @@strong{preventing}
-hardcoded secrets like passwords, api keys, and tokens in git repos.  Gitleaks
-is an @@strong{easy-to-use, all-in-one solution} for detecting secrets, past or
-present, in your code.")
     (license license:expat)))
 
 (define-public go-github-com-operatorfoundation-ed25519
