@@ -4289,6 +4289,35 @@ representation of a 128-bit value.  It can also parse UUID-format strings into
 their component bytes.")
     (license license:mpl2.0)))
 
+(define-public go-github-com-rs-xid
+  (package
+    (name "go-github-com-rs-xid")
+    (version "1.5.0")
+    (source
+     (origin
+       (method git-fetch)
+       (uri (git-reference
+             (url "https://github.com/rs/xid")
+             (commit (string-append "v" version))))
+       (file-name (git-file-name name version))
+       (sha256
+        (base32 "0mbdjp56w3nkxy0cvifls6abv13yy315jsa8in29lc05csdhni5v"))))
+    (build-system go-build-system)
+    (arguments
+     (list
+      #:import-path "github.com/rs/xid"))
+    (home-page "https://github.com/rs/xid")
+    (synopsis "Globally Unique ID Generator")
+    (description
+     "Xid is a globally unique ID generator suited for web scale. It used the
+@url{https://www.mongodb.com/docs/manual/reference/method/ObjectId/, Mongo Object ID
+algorithm} to generate globally unique ID's with a different
+serialization (@url{https://datatracker.ietf.org/doc/html/rfc4648#page-10,
+\"base32hex\"}) to make it shorter as a string. Other ID formats are UUID, shortuuid,
+Snowflake, MongoID. They vary between 8 bytes and 16 bytes, serialized between 20 and
+36 chars.")
+    (license license:expat)))
+
 (define-public go-github-com-hashicorp-go-version
   (let ((commit
          "03c5bf6be031b6dd45afec16b1cf94fc8938bc77")
