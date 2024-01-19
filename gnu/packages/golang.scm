@@ -9259,16 +9259,16 @@ It lets you parse and compare two semantic version strings.")
 (define-public go-github-com-coreos-go-systemd-activation
   (package
     (name "go-github-com-coreos-go-systemd-activation")
-    (version "0.0.0-20191104093116-d3cd4ed1dbcf")
+    (version "22.5.0")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                     (url "https://github.com/coreos/go-systemd")
-                    (commit (go-version->git-ref version))))
+                    (commit (string-append "v" version))))
               (file-name (git-file-name name version))
               (sha256
                (base32
-                "193mgqn7n4gbb8jb5kyn6ml4lbvh4xs55qpjnisaz7j945ik3kd8"))))
+                "1vhb4cw8nw9nx8mprx829xv8w4jnwhc2lcyjljzlfafsn8nx5nyf"))))
     (build-system go-build-system)
     (arguments
      '(#:import-path "github.com/coreos/go-systemd/activation"
@@ -9277,6 +9277,275 @@ It lets you parse and compare two semantic version strings.")
     (synopsis "Go bindings to systemd socket activation")
     (description "Go bindings to systemd socket activation; for writing and
 using socket activation from Go.")
+    (license license:asl2.0)))
+
+(define-public go-github-com-coreos-go-systemd-daemon
+  (package
+    (name "go-github-com-coreos-go-systemd-daemon")
+    (version "22.5.0")
+    (source (origin
+              (method git-fetch)
+              (uri (git-reference
+                    (url "https://github.com/coreos/go-systemd")
+                    (commit (string-append "v" version))))
+              (file-name (git-file-name name version))
+              (sha256
+               (base32
+                "1vhb4cw8nw9nx8mprx829xv8w4jnwhc2lcyjljzlfafsn8nx5nyf"))))
+    (build-system go-build-system)
+    (arguments
+     '(#:import-path "github.com/coreos/go-systemd/daemon"
+       #:unpack-path "github.com/coreos/go-systemd"
+       ;; No dbus socket
+       #:tests? #t))
+    (home-page "https://github.com/coreos/go-systemd")
+    (synopsis "Go bindings to systemd daemon")
+    (description "Go bindings to systemd daemon; TODO")
+    (license license:asl2.0)))
+
+(define-public go-github-com-coreos-go-systemd-dbus
+  (package
+    (name "go-github-com-coreos-go-systemd-dbus")
+    (version "22.5.0")
+    (source (origin
+              (method git-fetch)
+              (uri (git-reference
+                    (url "https://github.com/coreos/go-systemd")
+                    (commit (string-append "v" version))))
+              (file-name (git-file-name name version))
+              (sha256
+               (base32
+                "1vhb4cw8nw9nx8mprx829xv8w4jnwhc2lcyjljzlfafsn8nx5nyf"))))
+    (build-system go-build-system)
+    (arguments
+     '(#:import-path "github.com/coreos/go-systemd/dbus"
+       #:unpack-path "github.com/coreos/go-systemd"
+       ;; No dbus socket
+       #:tests? #f))
+    (propagated-inputs (list go-github-com-godbus-dbus))
+    (home-page "https://github.com/coreos/go-systemd")
+    (synopsis "Go bindings to systemd dbus")
+    (description "Go bindings to systemd dbus; TODO")
+    (license license:asl2.0)))
+
+(define-public go-github-com-coreos-go-systemd-import1
+  (package
+    (name "go-github-com-coreos-go-systemd-import1")
+    (version "22.5.0")
+    (source (origin
+              (method git-fetch)
+              (uri (git-reference
+                    (url "https://github.com/coreos/go-systemd")
+                    (commit (string-append "v" version))))
+              (file-name (git-file-name name version))
+              (sha256
+               (base32
+                "1vhb4cw8nw9nx8mprx829xv8w4jnwhc2lcyjljzlfafsn8nx5nyf"))))
+    (build-system go-build-system)
+    (arguments
+     '(#:import-path "github.com/coreos/go-systemd/import1"
+       #:unpack-path "github.com/coreos/go-systemd"
+       ;; No dbus socket
+       #:tests? #f))
+    (propagated-inputs (list go-github-com-godbus-dbus))
+    (home-page "https://github.com/coreos/go-systemd")
+    (synopsis "Go bindings to systemd import1")
+    (description "Go bindings to systemd import1; TODO")
+    (license license:asl2.0)))
+
+;; Interna
+(define go-github-com-coreos-go-systemd-internal-dlopen
+  (package
+    (name "go-github-com-coreos-go-systemd-internal")
+    (version "22.5.0")
+    (source (origin
+              (method git-fetch)
+              (uri (git-reference
+                    (url "https://github.com/coreos/go-systemd")
+                    (commit (string-append "v" version))))
+              (file-name (git-file-name name version))
+              (sha256
+               (base32
+                "1vhb4cw8nw9nx8mprx829xv8w4jnwhc2lcyjljzlfafsn8nx5nyf"))))
+    (build-system go-build-system)
+    (arguments
+     '(#:import-path "github.com/coreos/go-systemd/internal/dlopen"
+       #:unpack-path "github.com/coreos/go-systemd"
+       ;; No dbus socket
+       #:tests? #t))
+    (home-page "https://github.com/coreos/go-systemd")
+    (synopsis "TODO")
+    (description "TODO")
+    (license license:asl2.0)))
+
+(define-public go-github-com-coreos-go-systemd-journal
+  (package
+    (name "go-github-com-coreos-go-systemd-journal")
+    (version "22.5.0")
+    (source (origin
+              (method git-fetch)
+              (uri (git-reference
+                    (url "https://github.com/coreos/go-systemd")
+                    (commit (string-append "v" version))))
+              (file-name (git-file-name name version))
+              (sha256
+               (base32
+                "1vhb4cw8nw9nx8mprx829xv8w4jnwhc2lcyjljzlfafsn8nx5nyf"))))
+    (build-system go-build-system)
+    (arguments
+     '(#:import-path "github.com/coreos/go-systemd/journal"
+       #:unpack-path "github.com/coreos/go-systemd"
+       ;; No journald running
+       #:tests? #f))
+    (home-page "https://github.com/coreos/go-systemd")
+    (synopsis "Go bindings to systemd journal")
+    (description "Go bindings to systemd journal; TODO")
+    (license license:asl2.0)))
+
+(define-public go-github-com-coreos-go-systemd-login1
+  (package
+    (name "go-github-com-coreos-go-systemd-login1")
+    (version "22.5.0")
+    (source (origin
+              (method git-fetch)
+              (uri (git-reference
+                    (url "https://github.com/coreos/go-systemd")
+                    (commit (string-append "v" version))))
+              (file-name (git-file-name name version))
+              (sha256
+               (base32
+                "1vhb4cw8nw9nx8mprx829xv8w4jnwhc2lcyjljzlfafsn8nx5nyf"))))
+    (build-system go-build-system)
+    (arguments
+     '(#:import-path "github.com/coreos/go-systemd/login1"
+       #:unpack-path "github.com/coreos/go-systemd"
+       ;; No dbus socket
+       #:tests? #f))
+    (propagated-inputs (list go-github-com-godbus-dbus))
+    (home-page "https://github.com/coreos/go-systemd")
+    (synopsis "Go bindings to systemd login1")
+    (description "Go bindings to systemd login1; TODO")
+    (license license:asl2.0)))
+
+(define-public go-github-com-coreos-go-systemd-machine1
+  (package
+    (name "go-github-com-coreos-go-systemd-machine1")
+    (version "22.5.0")
+    (source (origin
+              (method git-fetch)
+              (uri (git-reference
+                    (url "https://github.com/coreos/go-systemd")
+                    (commit (string-append "v" version))))
+              (file-name (git-file-name name version))
+              (sha256
+               (base32
+                "1vhb4cw8nw9nx8mprx829xv8w4jnwhc2lcyjljzlfafsn8nx5nyf"))))
+    (build-system go-build-system)
+    (arguments
+     '(#:import-path "github.com/coreos/go-systemd/machine1"
+       #:unpack-path "github.com/coreos/go-systemd"
+       ;; No dbus socket
+       #:tests? #f))
+    (propagated-inputs (list go-github-com-godbus-dbus))
+    (home-page "https://github.com/coreos/go-systemd")
+    (synopsis "Go bindings to systemd machine1")
+    (description "Go bindings to systemd machine1; TODO")
+    (license license:asl2.0)))
+
+;; (define-public go-github-com-coreos-go-systemd-scripts
+;;   (package
+;;     (name "go-github-com-coreos-go-systemd-scripts")
+;;     (version "22.5.0")
+;;     (source (origin
+;;               (method git-fetch)
+;;               (uri (git-reference
+;;                     (url "https://github.com/coreos/go-systemd")
+;;                     (commit (string-append "v" version))))
+;;               (file-name (git-file-name name version))
+;;               (sha256
+;;                (base32
+;;                 "1vhb4cw8nw9nx8mprx829xv8w4jnwhc2lcyjljzlfafsn8nx5nyf"))))
+;;     (build-system go-build-system)
+;;     (arguments
+;;      '(#:import-path "github.com/coreos/go-systemd/scripts"
+;;        #:unpack-path "github.com/coreos/go-systemd"
+;;        ;; No dbus socket
+;;        #:tests? #t))
+;;     (home-page "https://github.com/coreos/go-systemd")
+;;     (synopsis "Go bindings to systemd scripts")
+;;     (description "Go bindings to systemd scripts; TODO")
+;;     (license license:asl2.0)))
+
+(define-public go-github-com-coreos-go-systemd-sdjournal
+  (package
+    (name "go-github-com-coreos-go-systemd-sdjournal")
+    (version "22.5.0")
+    (source (origin
+              (method git-fetch)
+              (uri (git-reference
+                    (url "https://github.com/coreos/go-systemd")
+                    (commit (string-append "v" version))))
+              (file-name (git-file-name name version))
+              (sha256
+               (base32
+                "1vhb4cw8nw9nx8mprx829xv8w4jnwhc2lcyjljzlfafsn8nx5nyf"))))
+    (build-system go-build-system)
+    (arguments
+     '(#:import-path "github.com/coreos/go-systemd/sdjournal"
+       #:unpack-path "github.com/coreos/go-systemd"
+       ;; No dbus socket
+       #:tests? #t))
+    (home-page "https://github.com/coreos/go-systemd")
+    (synopsis "Go bindings to systemd sdjournal")
+    (description "Go bindings to systemd sdjournal; TODO")
+    (license license:asl2.0)))
+
+(define-public go-github-com-coreos-go-systemd-unit
+  (package
+    (name "go-github-com-coreos-go-systemd-unit")
+    (version "22.5.0")
+    (source (origin
+              (method git-fetch)
+              (uri (git-reference
+                    (url "https://github.com/coreos/go-systemd")
+                    (commit (string-append "v" version))))
+              (file-name (git-file-name name version))
+              (sha256
+               (base32
+                "1vhb4cw8nw9nx8mprx829xv8w4jnwhc2lcyjljzlfafsn8nx5nyf"))))
+    (build-system go-build-system)
+    (arguments
+     '(#:import-path "github.com/coreos/go-systemd/unit"
+       #:unpack-path "github.com/coreos/go-systemd"
+       ;; No dbus socket
+       #:tests? #t))
+    (home-page "https://github.com/coreos/go-systemd")
+    (synopsis "Go bindings to systemd unit")
+    (description "Go bindings to systemd unit; TODO")
+    (license license:asl2.0)))
+
+(define-public go-github-com-coreos-go-systemd-util
+  (package
+    (name "go-github-com-coreos-go-systemd-util")
+    (version "22.5.0")
+    (source (origin
+              (method git-fetch)
+              (uri (git-reference
+                    (url "https://github.com/coreos/go-systemd")
+                    (commit (string-append "v" version))))
+              (file-name (git-file-name name version))
+              (sha256
+               (base32
+                "1vhb4cw8nw9nx8mprx829xv8w4jnwhc2lcyjljzlfafsn8nx5nyf"))))
+    (build-system go-build-system)
+    (arguments
+     '(#:import-path "github.com/coreos/go-systemd/util"
+       #:unpack-path "github.com/coreos/go-systemd"
+       ;; No dbus socket
+       #:tests? #t))
+    (home-page "https://github.com/coreos/go-systemd")
+    (synopsis "Go bindings to systemd util")
+    (description "Go bindings to systemd util; TODO")
     (license license:asl2.0)))
 
 (define-public go-github-com-coreos-go-systemd-v22
@@ -9295,16 +9564,27 @@ using socket activation from Go.")
     (build-system go-build-system)
     (arguments
      (list
-      #:import-path "github.com/coreos/go-systemd/v22"))
-    (propagated-inputs (list go-github-com-godbus-dbus))
+      #:import-path "github.com/coreos/go-systemd"
+      #:unpack-path "github.com/coreos/go-systemd"))
+    (propagated-inputs (list go-github-com-coreos-go-systemd-activation
+                             go-github-com-coreos-go-systemd-daemon
+                             go-github-com-coreos-go-systemd-dbus
+                             go-github-com-coreos-go-systemd-import1
+                             go-github-com-coreos-go-systemd-journal
+                             go-github-com-coreos-go-systemd-login1
+                             go-github-com-coreos-go-systemd-machine1
+                             go-github-com-coreos-go-systemd-sdjournal
+                             go-github-com-coreos-go-systemd-unit
+                             go-github-com-coreos-go-systemd-util))
+    (inputs (list go-github-com-coreos-go-systemd-internal-dlopen))
     (home-page "https://github.com/coreos/go-systemd")
-    (synopsis "Systemd bindings for Go")
-    (description "Go bindings to systemd. The project has several packages:
+    (synopsis "Go bindings for Systemd")
+    (description "Go bindings to Systemd. The project has several packages:
 @itemize @bullet
 @item
 activation - for writing and using socket activation from Go.
 @item
-daemon - for notifying systemd of service status changes.
+daemon - for notifying Systemd of service status changes.
 @item
 dbus - for starting/stopping/inspecting running services and units.
 @item
