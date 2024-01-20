@@ -8652,49 +8652,6 @@ It lets you parse and compare two semantic version strings.")
 using socket activation from Go.")
     (license license:asl2.0)))
 
-(define-public go-github-com-coreos-go-systemd-v22
-  (package
-    (name "go-github-com-coreos-go-systemd-v22")
-    (version "22.5.0")
-    (source
-     (origin
-       (method git-fetch)
-       (uri (git-reference
-             (url "https://github.com/coreos/go-systemd")
-             (commit (string-append "v" version))))
-       (file-name (git-file-name name version))
-       (sha256
-        (base32 "1vhb4cw8nw9nx8mprx829xv8w4jnwhc2lcyjljzlfafsn8nx5nyf"))))
-    (build-system go-build-system)
-    (arguments
-     (list
-      #:import-path "github.com/coreos/go-systemd/v22"))
-    (propagated-inputs (list go-github-com-godbus-dbus))
-    (home-page "https://github.com/coreos/go-systemd")
-    (synopsis "Systemd bindings for Go")
-    (description "Go bindings to systemd. The project has several packages:
-@itemize @bullet
-@item
-activation - for writing and using socket activation from Go.
-@item
-daemon - for notifying systemd of service status changes.
-@item
-dbus - for starting/stopping/inspecting running services and units.
-@item
-journal - for writing to systemd's logging service, journald.
-@item
-sdjournal - for reading from journald by wrapping its C API.
-@item
-login1 - for integration with the systemd logind API.
-@item
-machine1 - for registering machines/containers with systemd.
-@item
-unit - for (de)serialization and comparison of unit files.
-@end itemize
-")
-    (license license:asl2.0)))
-
-
 (define-public go-github-com-emirpasic-gods
   (package
     (name "go-github-com-emirpasic-gods")
