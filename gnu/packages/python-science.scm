@@ -561,6 +561,82 @@ and intuitive.  It aims to be the fundamental high-level building block for
 doing practical, real world data analysis in Python.")
     (license license:bsd-3)))
 
+(define-public python-datashape
+  (package
+    (name "python-datashape")
+    (version "0.5.2")
+    (source
+     (origin
+       (method url-fetch)
+       (uri (pypi-uri "datashape" version))
+       (sha256
+        (base32 "10ypax7d9wz45mjv705h8pg3ahhlcf83l94a8v0h7w1w1ilylmi3"))))
+    (build-system python-build-system)
+    (propagated-inputs (list python-multipledispatch python-numpy
+                             python-dateutil python-setuptools))
+    (arguments
+     ;;FIXME: promote() missing required positional arugments...  It's trying to run
+     ;; 'promote()' as a test, when it should be running test_promote()!
+     `(#:tests? #f))
+    (home-page "http://datashape.readthedocs.org/en/latest/")
+    (synopsis "A data description language.")
+    (description "This package provides a data description language.")
+    (license license:bsd-3)))
+
+(define-public python-odo
+  (package
+    (name "python-odo")
+    (version "0.5.0")
+    (source
+     (origin
+       (method url-fetch)
+       (uri (pypi-uri "odo" version))
+       (sha256
+        (base32 "1mh5k69d9ph9jd07jl9yqh78rbnh5cjspi1q530v3ml7ivjzz4p8"))))
+    (build-system pyproject-build-system)
+    #;(arguments
+     `(#:phases (modify-phases %standard-phases
+                  (add-after 'unpack 'patch-collections
+                    (lambda _
+                      (map (lambda (filename) (substitute* filename
+                                                (("collections") "collections.abc")) )
+                           (find-files "odo" "\\.py$"))
+                      )))))
+    (propagated-inputs (list python-
+                             python-datashape
+                             python-multipledispatch
+                             python-networkx
+                             python-numpy
+                             python-pandas
+                             python-toolz))
+    (home-page "https://github.com/blaze/odo")
+    (synopsis "Data migration utilities")
+    (description "Data migration utilities")
+    (license license:bsd-3)))
+
+(define-public python-blaze
+  (package
+    (name "python-blaze")
+    (version "0.10.1")
+    (source
+     (origin
+       (method url-fetch)
+       (uri (pypi-uri "blaze" version))
+       (sha256
+        (base32 "16m1nzs5gzwa62pwybjsxgbdpd9jy10rhs3c3niacyf6aa6hr9jh"))))
+    (build-system pyproject-build-system)
+    (propagated-inputs (list python-flask
+                             python-flask-cors
+                             python-odo
+                             python-psutil
+                             python-sqlalchemy
+                             python-toolz))
+    (home-page "UNKNOWN")
+    (synopsis "Blaze")
+    (description "Blaze")
+    (license license:bsd-3)))
+
+
 (define-public python-pythran
   (package
     (name "python-pythran")
