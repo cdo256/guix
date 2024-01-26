@@ -43,6 +43,7 @@
   #:use-module (guix build-system copy)
   #:use-module (guix modules)
   #:use-module (gnu packages)
+  #:use-module (gnu packages admin) ;XXX: testing
   #:use-module (gnu packages adns)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages base)
@@ -53,7 +54,10 @@
   #:use-module (gnu packages cpp)
   #:use-module (gnu packages cppi)
   #:use-module (gnu packages elf)
+  #:use-module (gnu packages file)
+  #:use-module (gnu packages gawk)
   #:use-module (gnu packages gcc)
+  #:use-module (gnu packages java)
   #:use-module (gnu packages linux)
   #:use-module (gnu packages lisp)
   #:use-module (gnu packages logging)
@@ -78,7 +82,8 @@
   #:use-module (gnu packages version-control)
   #:use-module (guix build-system gnu)
   #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system python))
+  #:use-module (guix build-system python)
+  #;#:use-module #;((srfi srfi-1) #:prefix srfi-1:))
 
 (define-public bam
   (package
@@ -114,6 +119,87 @@ describe the build process.  It takes its inspiration for the script files
 from scons.  While scons focuses on being 100% correct when building, bam
 makes a few sacrifices to acquire fast full and incremental build times.")
     (license license:bsd-3)))
+
+;; Following https://bazel.build/install/compile-source#bootstrap-bazel
+(define-public bazel-bootstrap
+  (let ((inputs '(list python)))
+  (package
+    (name "bazel")
+    (version "7.0.2")
+    (source
+     (origin
+       (method url-fetch)
+       (uri (string-append
+             "https://github.com/bazelbuild/bazel/releases/download/"
+             version "/bazel-" version "-dist.zip"))
+       (sha256
+        (base32
+         "0dg00kas8152fn5m9y201fzyqi0q93168bs03kjg6gnlfl2vk8ny"))))
+    (build-system gnu-build-system)
+    (arguments
+     `(#:phases (modify-phases %standard-phases
+                  (add-after 'unpack 'chdir
+                    (lambda _ (chdir "..")))
+                  (add-before 'configure 'bootstrap-compile
+                    (lambda* (#:key native-inputs outputs source #:allow-other-keys)
+                      (setenv "PATH" (string-append ,openjdk11 "/bin:"
+                                                    (getenv "PATH"))
+                              #;,(srfi-1:fold (lambda (x y) (string-append x ":" y))
+                                            (getenv "PATH")
+                                            ,inputs))
+                      (invoke (string-append "./compile.sh")))))))
+    (native-inputs (list bash
+                         coreutils
+                         diffutils
+                         file
+                         findutils
+                         gawk
+                         grep
+                         patch
+                         sed
+                         tar
+                         gzip
+                         python
+                         unzip
+                         which
+                         zip
+                         javacc
+                         openjdk11))
+    (inputs (list bash
+                  coreutils
+                  diffutils
+                  file
+                  findutils
+                  gawk
+                  grep
+                  patch
+                  sed
+                  tar
+                  gzip
+                  python
+                  unzip
+                  which
+                  zip))
+    (description "TODO")
+    (synopsis "TODO")
+    (license license:asl2.0)
+    (home-page "https://bazel.build"))))
+
+;; (define-public bazel
+;;   (package
+;;     (name "bazel")
+;;     (version "7.0.2")
+;;     (source
+;;      (origin
+;;        (method git-fetch)
+;;        (uri (git-reference
+;;              (url "https://github.com/bazelbuild/bazel")
+;;              (commit version)))
+;;        (file-name (git-file-name name version))
+;;        (sha256
+;;         (base32
+;;          "0z8jzvxmzna7320w3hvmzb1qsv91g9npc5z5j28ncwnn0b74yxnn"))))
+;;     (build-system)))
 
 (define-public bear
   (package
