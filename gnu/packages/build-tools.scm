@@ -122,64 +122,53 @@ makes a few sacrifices to acquire fast full and incremental build times.")
 
 ;; Following https://bazel.build/install/compile-source#bootstrap-bazel
 (define-public bazel-bootstrap
-  (let ((inputs '(list python)))
-  (package
-    (name "bazel")
-    (version "7.0.2")
-    (source
-     (origin
-       (method url-fetch)
-       (uri (string-append
-             "https://github.com/bazelbuild/bazel/releases/download/"
-             version "/bazel-" version "-dist.zip"))
-       (sha256
-        (base32
-         "0dg00kas8152fn5m9y201fzyqi0q93168bs03kjg6gnlfl2vk8ny"))))
-    (build-system gnu-build-system)
-    (arguments
-     `(#:phases (modify-phases %standard-phases
-                  (add-after 'unpack 'chdir
-                    (lambda _ (chdir "..")))
-                  (add-before 'configure 'bootstrap-compile
-                    (lambda* (#:key native-inputs outputs source #:allow-other-keys)
-                      (setenv "PATH" (string-append ,openjdk11 "/bin:"
-                                                    (getenv "PATH"))
-                              #;,(srfi-1:fold (lambda (x y) (string-append x ":" y))
-                                            (getenv "PATH")
-                                            ,inputs))
+  (let ((x #f)) ;;XXX
+    (package
+      (name "bazel")
+      (version "7.0.2")
+      (source
+       (origin
+         (method url-fetch)
+         (uri (string-append
+               "https://github.com/bazelbuild/bazel/releases/download/"
+               version "/bazel-" version "-dist.zip"))
+         (sha256
+          (base32
+           "0dg00kas8152fn5m9y201fzyqi0q93168bs03kjg6gnlfl2vk8ny"))))
+      (build-system gnu-build-system)
+      (arguments
+       `(#:phases (modify-phases %standard-phases
+                    (add-after 'unpack 'chdir
+                      (lambda _ (chdir "..")))
+                    (add-before 'configure 'bootstrap-compile
+                      (lambda* (#:key native-inputs outputs source #:allow-other-keys)
+                        #;(setenv "PATH" (string-append ,openjdk11 "/bin:"
+                        (getenv "PATH"))
+                        #;,(srfi-1:fold (lambda (x y) (string-append x ":" y))
+                        (getenv "PATH")
+                        ,inputs))
+                      (setenv "BAZEL_SKIP_JAVA_COMPILATION" "yes")
                       (invoke (string-append "./compile.sh")))))))
-    (native-inputs (list bash
-                         coreutils
-                         diffutils
-                         file
-                         findutils
-                         gawk
-                         grep
-                         patch
-                         sed
-                         tar
-                         gzip
-                         python
-                         unzip
-                         which
-                         zip
-                         javacc
-                         openjdk11))
-    (inputs (list bash
-                  coreutils
-                  diffutils
-                  file
-                  findutils
-                  gawk
-                  grep
-                  patch
-                  sed
-                  tar
-                  gzip
-                  python
-                  unzip
-                  which
-                  zip))
+    (native-inputs `(("bash" ,bash)
+                     ("coreutils" ,coreutils)
+                     ("diffutils" ,diffutils)
+                     ("file" ,file)
+                     ("findutils" ,findutils)
+                     ("gawk" ,gawk)
+                     ("grep" ,grep)
+                     ("patch" ,patch)
+                     ("sed" ,sed)
+                     ("tar" ,tar)
+                     ("gzip" ,gzip)
+                     ("python" ,python)
+                     ("unzip" ,unzip)
+                     ("which" ,which)
+                     ("zip" ,zip)
+                     ("javacc" ,javacc)
+                     ("openjdk" ,openjdk11)
+                     ("openjdk:jdk" ,openjdk11 "jdk")
+                     ("perl-digest-sha" ,perl-digest-sha)))
+    (inputs `())
     (description "TODO")
     (synopsis "TODO")
     (license license:asl2.0)
